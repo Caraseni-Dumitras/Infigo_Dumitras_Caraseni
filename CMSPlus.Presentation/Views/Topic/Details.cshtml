@@ -28,8 +28,20 @@
                 <button type="submit" class="btn btn-primary">Comment</button>
             </div>
         </div>
-        <div class="col-6 text-end">
-        <a asp-controller="Topic" asp-action="Index" class="btn btn-primary">Back to list</a>
-        </div>
     }
+    @foreach (var comment in Model.Comments)
+    {
+        <div>
+            <div class="mt-2 mb-1 d-flex justify-content-between">
+                <p class="mb-0">@comment.FullName</p>
+                <p class="mb-0"> @comment.CreatedOnUtc</p>
+            </div>
+            
+            <p class="mt-2 border rounded p-2 text-black-50">@comment.Description</p>
+        </div>
+
+    }
+    <div class="col-6 text-end">
+        <a asp-controller="Topic" asp-action="Index" class="btn btn-primary">Back to list</a>
+    </div>
 </div>

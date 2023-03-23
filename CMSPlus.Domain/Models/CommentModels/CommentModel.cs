@@ -14,10 +14,9 @@ namespace CMSPlus.Domain.Models.CommentModels
             UpdatedOnUtc = CreatedOnUtc = DateTime.UtcNow;
         }
         public int Id { get; set; }
+        public string FullName { get; set; }
         public string Description { get; set; }
         public DateTime? CreatedOnUtc { get; set; }
         public DateTime? UpdatedOnUtc { get; set; }
-
-        public TopicModel Topic { get; set; }
     }
 }

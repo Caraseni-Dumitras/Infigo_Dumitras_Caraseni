@@ -13,7 +13,8 @@ public class TopicRepository:Repository<TopicEntity>,ITopicRepository
 
     public async Task<TopicEntity?> GetBySystemName(string systemName)
     {
-        var result = await _dbSet.SingleOrDefaultAsync(topic => topic.SystemName == systemName);
+        var result = await _dbSet.Include(t => t.Comments)
+                              .SingleOrDefaultAsync(topic => topic.SystemName == systemName);
         return result;
     }
 }
