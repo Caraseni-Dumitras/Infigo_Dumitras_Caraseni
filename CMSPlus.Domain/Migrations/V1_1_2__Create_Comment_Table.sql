@@ -7,6 +7,7 @@ GO
 CREATE TABLE [dbo].[Comments](
     [Id] [int] IDENTITY(1,1) NOT NULL,
     [Description] [nvarchar](500) NOT NULL,
+    [TopicId] [int] NOT NULL,
     PRIMARY KEY CLUSTERED
 (
 [Id] ASC
@@ -14,14 +15,9 @@ CREATE TABLE [dbo].[Comments](
     ) ON [PRIMARY]
     GO
 
-/*Add new column to topics table for 1 to many relationship*/
-ALTER TABLE [dbo].[Topics]
-ADD Comments_Id INT NULL;
-GO
-
 /*Add foreign key constraint for one-to-many*/
-ALTER TABLE [dbo].[Topics]
-ADD CONSTRAINT fk_topics_comments
-FOREIGN KEY (Comments_Id)
-REFERENCES Comments(Id);
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT fk_comment_topic
+FOREIGN KEY (TopicId)
+REFERENCES Topics(Id);
 GO

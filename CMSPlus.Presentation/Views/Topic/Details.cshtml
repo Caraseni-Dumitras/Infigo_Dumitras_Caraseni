@@ -14,4 +14,22 @@
     <div class="row">
         <p class="col-12 text-black-50 text-end">System name: @Model.SystemName</p>
     </div>
+    @using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            <div class="row-12 text-end m-1">
+                <input asp-for="CommentCreateModel.FullName" class="form-control" placeholder="Your Name:"></input>
+            </div>
+            <div class="row-12 text-end m-1">
+                <input asp-for="CommentCreateModel.Description" class="form-control" placeholder="Your Comment:"></input>
+            </div>
+            <div class="row-12 text-end m-1">
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </div>
+        </div>
+        <div class="col-6 text-end">
+        <a asp-controller="Topic" asp-action="Index" class="btn btn-primary">Back to list</a>
+        </div>
+    }
 </div>
