@@ -1,4 +1,5 @@
 @model CMSPlus.Domain.Models.TopicModels.TopicDetailsModel
+@using Newtonsoft.Json;
 
 @{
     ViewBag.Title = "Details";
@@ -17,12 +18,22 @@
     @using (Html.BeginForm("Create", "Comment", FormMethod.Post))
     {
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Title)
+        @Html.HiddenFor(model => model.Body)
+        @Html.HiddenFor(model => model.SystemName)
+        @Html.HiddenFor(model => model.CreatedOnUtc)
+        @Html.HiddenFor(model => model.UpdatedOnUtc)
+        @Html.HiddenFor(model => model.Comments)
+        @Html.Hidden("commentsJson", JsonConvert.SerializeObject(Model.Comments))
+
         <div class="form-group">
             <div class="row-12 text-end m-1">
                 <input asp-for="CommentCreateModel.FullName" class="form-control" placeholder="Your Name:"></input>
+                <span asp-validation-for="CommentCreateModel.FullName" class="text-danger"></span>
             </div>
             <div class="row-12 text-end m-1">
                 <input asp-for="CommentCreateModel.Description" class="form-control" placeholder="Your Comment:"></input>
+                <span asp-validation-for="CommentCreateModel.Description" class="text-danger"></span>
             </div>
             <div class="row-12 text-end m-1">
                 <button type="submit" class="btn btn-primary">Comment</button>
