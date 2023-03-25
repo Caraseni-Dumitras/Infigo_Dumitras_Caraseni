@@ -2,10 +2,12 @@
 using CMSPlus.Domain.Entities;
 using CMSPlus.Domain.Models.CommentModels;
 using CMSPlus.Domain.Models.TopicModels;
+using CMSPlus.Presentation.CustomAttribute;
 using CMSPlus.Services.Interfaces;
 using CMSPlus.Services.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,13 +30,12 @@ namespace CMSPlus.Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [TypeFilter(typeof(CustomAuthorizationFilter))]
         [ActionName("Create")]
         public async Task<IActionResult> Create(TopicDetailsModel topic, string commentsJson)
         {
             var comments = JsonConvert.DeserializeObject<List<CommentModel>>(commentsJson);
             var systemName = new RouteValueDictionary(new { systemName = topic.SystemName });
-
             if (ModelState.IsValid)
             {
                 topic.CommentCreateModel.TopicId = topic.Id;
